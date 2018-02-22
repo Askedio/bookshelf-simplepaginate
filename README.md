@@ -33,16 +33,16 @@ Car.query(function (qb) {
 Output of results: 
 ```json
 {
-    data: [<Car>], // Regular bookshelf Collection
-    meta: {
-        pagination: {
-        count: 53, // Total number of rows found for the query after pagination
-        per_page: 15, // The requested number of rows per page
-        current_page: 3, // The requested page number
-        links: {
-            previous: 
-            next:
-        }
+    "data": [], // <Car> Regular bookshelf Collection
+    "meta": {
+        "pagination": {
+        "count": 53, // Total number of rows found for the query after pagination
+        "per_page": 15, // The requested number of rows per page
+        "current_page": 1, // The requested page number
+        "links": {
+            "previous": null,
+            "next": 1
+          }
         }
     }
 }
