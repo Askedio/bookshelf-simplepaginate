@@ -21,7 +21,7 @@ Car.query(function (qb) {
     qb.innerJoin('manufacturers', 'cars.manufacturer_id', 'manufacturers.id');
     qb.groupBy('cars.id');
     qb.where('manufacturers.country', '=', 'Sweden');
-}).simplepaginate({
+}).simplePaginate({
     limit: 15, // Defaults to 10 if not specified
     page: 3, // Defaults to 1 if not specified
     withRelated: ['engine'] // Passed to Model#fetchAll
