@@ -33,17 +33,17 @@ Car.query(function (qb) {
 Output of results: 
 ```json
 {
-    "data": [], // <Car> Regular bookshelf Collection
-    "meta": {
-        "pagination": {
-        "count": 53, // Total number of rows found for the query after pagination
-        "per_page": 15, // The requested number of rows per page
-        "current_page": 1, // The requested page number
-        "links": {
+   "data": [],
+   "meta": {
+      "pagination": {
+         "count": 53,
+         "per_page": 15,
+         "current_page": 1,
+         "links": {
             "previous": null,
             "next": 1
-          }
-        }
-    }
+         }
+      }
+   }
 }
 ```
