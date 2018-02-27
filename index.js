@@ -3,7 +3,6 @@
 /*jshint esversion: 6 */
 
 const DEFAULT_LIMIT = 10;
-const DEFAULT_OFFSET = 0;
 const DEFAULT_PAGE = 1;
 
 /**
@@ -107,24 +106,22 @@ module.exports = function simplePaginationPlugin(bookshelf) {
         return def;
       }
 
-      var _val = parseInt(val);
-      if (Number.isNaN(_val)) {
+      val = parseInt(val);
+
+      if (Number.isNaN(val)) {
         return def;
       }
 
-      return _val;
+      return val;
     }
 
     const {
       page,
-      pageSize,
       limit,
-      offset
     } = options;
 
     const _limit = ensureIntWithDefault(limit, DEFAULT_LIMIT);
-    const _offset = ensureIntWithDefault(offset, DEFAULT_OFFSET);
-    const _page = ensureIntWithDefault(page, DEFAULT_OFFSET);
+    let _page = ensureIntWithDefault(page, DEFAULT_PAGE);
 
     const fetchMethodName = this instanceof Model ? 'fetchAll' : 'fetch';
     const fetchOptions = objectWithoutProperties(options, ['page', 'limit', 'offset']);
@@ -132,7 +129,7 @@ module.exports = function simplePaginationPlugin(bookshelf) {
     const paginate = () => {
       return this.clone().query((qb) => {
         qb.limit.apply(qb, [_limit + 1]);
-        qb.offset.apply(qb, [_offset]);
+        qb.offset.apply(qb, [(_page - 1) * _limit]);
       })[fetchMethodName](fetchOptions);
     };
 
