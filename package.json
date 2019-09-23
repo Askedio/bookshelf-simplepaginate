@@ -1,6 +1,6 @@
 {
   "name": "bookshelf-simplepaginate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple bookshelfjs pagination based on Laravels simplePaginate.",
   "main": "index.js",
   "scripts": {
