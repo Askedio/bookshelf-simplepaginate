@@ -133,23 +133,34 @@ module.exports = function simplePaginationPlugin(bookshelf) {
       })[fetchMethodName](fetchOptions);
     };
 
-    return paginate().then((data) => {
-      const hasNextPage = data.length === _limit + 1;
+    const total = () => {
+      return this.clone().query((qb) => {
+        qb.count('* as total');
+      })[fetchMethodName](fetchOptions);
+    }
 
-      return {
-        data: data.slice(0, _limit),
-        meta: {
-          pagination: {
-            count: hasNextPage ? _limit : data.length,
-            per_page: _limit,
-            current_page: _page,
-            links: {
-              previous: _page > 1 ? _page - 1 : null,
-              next: hasNextPage ? _page + 1 : null,
-            }
-          },
-        }
-      };
+    return paginate().then((datas) => {
+      let data = datas
+      return total().then((total) => {
+        const hasNextPage = data.length === _limit + 1;
+        const totals = total.toJSON()[0].total;
+        return {
+          data: data.slice(0, _limit),
+          meta: {
+            pagination: {
+              count_total: totals,
+              page_total: Math.ceil(totals / _limit),
+              count_per_page: hasNextPage ? _limit : total.toJSON()[0].total,
+              per_page: _limit,
+              current_page: _page,
+              links: {
+                previous: _page > 1 ? _page - 1 : null,
+                next: hasNextPage ? _page + 1 : null,
+              }
+            },
+          }
+        };
+      });
     });
   }
 
