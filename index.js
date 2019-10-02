@@ -150,7 +150,7 @@ module.exports = function simplePaginationPlugin(bookshelf) {
             pagination: {
               count_total: totals,
               page_total: Math.ceil(totals / _limit),
-              count_per_page: hasNextPage ? _limit : total.toJSON()[0].total,
+              count_per_page: hasNextPage ? _limit : data.length,
               per_page: _limit,
               current_page: _page,
               links: {
