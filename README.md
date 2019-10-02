@@ -22,7 +22,7 @@ Car.query(function (qb) {
     qb.groupBy('cars.id');
     qb.where('manufacturers.country', '=', 'Sweden');
 }).simplePaginate({
-    limit: 15, // Defaults to 10 if not specified
+    limit: 100, // Defaults to 10 if not specified
     page: 3, // Defaults to 1 if not specified
     withRelated: ['engine'] // Passed to Model#fetchAll
 }).then(function (results) {
@@ -36,8 +36,10 @@ Output of results:
    "data": [],
    "meta": {
       "pagination": {
-         "count": 53,
-         "per_page": 15,
+         "count_total": 1000,
+         "page_total": 10,
+         "count_per_page": 100,
+         "per_page": 100,
          "current_page": 1,
          "links": {
             "previous": null,
